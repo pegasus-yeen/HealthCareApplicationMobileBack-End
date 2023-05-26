@@ -45,7 +45,7 @@ module.exports = class Symptom {
 
     static findByDisease(id) {
         return db.execute(
-            'SELECT * FROM symptom as sym INNER JOIN symptomkeyword ON sym.id = symptomkeyword.symptom_id INNER JOIN disease as dis ON symptomkeyword.disease_id = dis.id where sym.id = ?',
+            'SELECT * FROM symptom as sym INNER JOIN symptomkeyword ON sym.id = symptomkeyword.Symptom_id INNER JOIN disease as dis ON symptomkeyword.Disease_id = dis.id where sym.id = ?',
             [id]
         )
     }
