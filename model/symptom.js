@@ -2,12 +2,12 @@ const db = require('../database/db');
 
 module.exports = class Symptom {
 
-    constructor(id, symptomName, discription, imageUr, BodyType_id) {
+    constructor(id, symptomName, discription, imageUr, bodytype_id) {
         this.id = id;
         this.symptomName = symptomName;
         this.discription = discription;
         this.imageUr = imageUr;
-        this.BodyType_id = BodyType_id;
+        this.bodytype_id = bodytype_id;
     }
 
     static findAll() {
@@ -17,13 +17,13 @@ module.exports = class Symptom {
     save() {
         if (this.id) {
             return db.execute(
-                'update symptom set symptomName=?, discription=?, imageUr=?,  BodyType_id=? where id = ?',
-                [this.symptomName, this.discription, this.imageUr, this.BodyType_id, this.id]
+                'update symptom set symptomName=?, discription=?, imageUr=?,  bodytype_id=? where id = ?',
+                [this.symptomName, this.discription, this.imageUr, this.bodytype_id, this.id]
             );
         } else {
             return db.execute(
-                'insert into symptom(symptomName, discription , imageUr, BodyType_id) values(?,?,?,?)',
-                [this.symptomName, this.discription, this.imageUr, this.BodyType_id]
+                'insert into symptom(symptomName, discription , imageUr, bodytype_id) values(?,?,?,?)',
+                [this.symptomName, this.discription, this.imageUr, this.bodytype_id]
             );
         }
     }
@@ -35,11 +35,11 @@ module.exports = class Symptom {
         );
     }
 
-    static findByIdBodyType(BodyType_id) {
+    static findByIdBodyType(bodytype_id) {
         return db.execute(
-            // 'select * from symptom INNER join BodyType on symptom.BodyType_id = BodyType.id where BodyType_id = ?',
-            'select symptom.id,symptom.symptomName,symptom.discription,symptom.imageUrl,symptom.BodyType_id,BodyType.typeTitle,BodyType.typeName from symptom Left join BodyType on symptom.BodyType_id = BodyType.id where BodyType_id = ?',
-            [BodyType_id]
+            // 'select * from symptom INNER join bodytype on symptom.bodytype_id = bodytype.id where bodytype_id = ?',
+            'select symptom.id,symptom.symptomName,symptom.discription,symptom.imageUrl,symptom.bodytype_id,bodytype.typeTitle,bodytype.typeName from symptom Left join bodytype on symptom.bodytype_id = bodytype.id where bodytype_id = ?',
+            [bodytype_id]
         )
     }
 
@@ -50,17 +50,17 @@ module.exports = class Symptom {
         )
     }
 
-    static findByIdBodyTypeNotImg(BodyType_id) {
+    static findByIdBodyTypeNotImg(bodytype_id) {
         return db.execute(
-            // 'select * from symptom INNER join BodyType on symptom.BodyType_id = BodyType.id where BodyType_id = ?',
-            'select symptom.id,symptom.symptomName,symptom.discription,symptom.imageUrl,symptom.BodyType_id,BodyType.typeTitle,BodyType.typeName from symptom Left join BodyType on symptom.BodyType_id = BodyType.id where BodyType_id = ? and symptom.imageUrl is null',
-            [BodyType_id]
+            // 'select * from symptom INNER join bodytype on symptom.bodytype_id = bodytype.id where bodytype_id = ?',
+            'select symptom.id,symptom.symptomName,symptom.discription,symptom.imageUrl,symptom.bodytype_id,bodytype.typeTitle,bodytype.typeName from symptom Left join bodytype on symptom.bodytype_id = bodytype.id where bodytype_id = ? and symptom.imageUrl is null',
+            [bodytype_id]
         )
     }
     static findBySymptomImg() {
         return db.execute(
-            // 'select * from symptom INNER join BodyType on symptom.BodyType_id = BodyType.id where BodyType_id = ?',
-            'select symptom.id,symptom.symptomName,symptom.discription,symptom.imageUrl,symptom.BodyType_id,BodyType.typeTitle,BodyType.typeName from symptom Left join BodyType on symptom.BodyType_id = BodyType.id where symptom.imageUrl is not null',
+            // 'select * from symptom INNER join bodytype on symptom.bodytype_id = bodytype.id where bodytype_id = ?',
+            'select symptom.id,symptom.symptomName,symptom.discription,symptom.imageUrl,symptom.bodytype_id,bodytype.typeTitle,bodytype.typeName from symptom Left join bodytype on symptom.bodytype_id = bodytype.id where symptom.imageUrl is not null',
         )
     }
 
