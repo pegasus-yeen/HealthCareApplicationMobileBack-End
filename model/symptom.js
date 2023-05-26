@@ -11,7 +11,7 @@ module.exports = class Symptom {
     }
 
     static findAll() {
-        return db.execute("SELECT * FROM symptom1");
+        return db.execute("SELECT * FROM symptom");
     }
 
     save() {
